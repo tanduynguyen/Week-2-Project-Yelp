@@ -24,17 +24,19 @@ class BusinessCell: UITableViewCell {
         didSet {
             
             if business.imageURL != nil {
-                self.restaurantImage.alpha = 0
+                restaurantImage.alpha = 0
                 UIView.animateWithDuration(0.3, animations: {
                     self.restaurantImage.alpha = 1
-                    self.restaurantImage.setImageWithURL(self.business.imageURL!)
+                    self.restaurantImage.setImageWithURL(self.business.imageURL!, placeholderImage: UIImage(named: "placeholder"))
                 })
             }
+            restaurantImage.layer.cornerRadius = 4
+            restaurantImage.layer.masksToBounds = true
             
             nameLabel.text = business.name
             distanceLabel.text = business.distance
             reviewImage.setImageWithURL(business.ratingImageURL!)
-            reviewLabel.text = (business.reviewCount?.stringValue)! + " reviews"
+            reviewLabel.text = String(business.reviewCount ?? 0) + " Reviews"
             addressLabel.text = business.address
             categoryLabel.text = business.categories
             
